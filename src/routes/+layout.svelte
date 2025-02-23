@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
+<div class="h-full w-full bg-slate-900 text-white">
+	<slot />
+</div>

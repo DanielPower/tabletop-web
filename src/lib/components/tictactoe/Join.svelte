@@ -10,7 +10,7 @@
 
 {#if $gameState.players.length < 2 && !alreadyJoined}
 	<button
-		class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xl"
+		class="w-full rounded bg-blue-500 px-4 py-2 text-xl font-bold text-white hover:bg-blue-700"
 		on:click={() => join()}
 	>
 		Join

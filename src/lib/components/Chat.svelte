@@ -14,8 +14,8 @@
 	$: reversedMessages = $gameState.messages.toReversed();
 </script>
 
-<div class="flex flex-col justify-end max-w-96 max-h-lvh bg-sky-100 p-2">
-	<div class="flex flex-col-reverse flex-grow overflow-y-auto">
+<div class="flex max-h-lvh max-w-96 flex-col justify-end bg-sky-100 p-2">
+	<div class="flex flex-grow flex-col-reverse overflow-y-auto">
 		{#each reversedMessages as { userId, message }}
 			<p>{userId}: {message}</p>
 		{/each}
@@ -25,8 +25,8 @@
 			type="text"
 			bind:value={message}
 			on:keypress={({ key }) => key === 'Enter' && sendMessage()}
-			class="p-1 w-full border border-black"
+			class="w-full border border-black p-1"
 		/>
-		<button class="p-1 border border-black" on:click={sendMessage}>Send</button>
+		<button class="border border-black p-1" on:click={sendMessage}>Send</button>
 	</div>
 </div>

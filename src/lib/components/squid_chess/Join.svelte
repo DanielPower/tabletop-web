@@ -16,14 +16,14 @@
 	<div class="flex">
 		<button
 			disabled={!!$gameState.players.white.userId}
-			class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xl disabled:opacity-50"
+			class="w-full rounded bg-blue-500 px-4 py-2 text-xl font-bold text-white hover:bg-blue-700 disabled:opacity-50"
 			on:click={() => join('white')}
 		>
 			Join as White
 		</button>
 		<button
 			disabled={!!$gameState.players.black.userId}
-			class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xl disabled:opacity-50"
+			class="w-full rounded bg-blue-500 px-4 py-2 text-xl font-bold text-white hover:bg-blue-700 disabled:opacity-50"
 			on:click={() => join('black')}
 		>
 			Join as Black

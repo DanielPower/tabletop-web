@@ -30,7 +30,7 @@
 				<img alt="Card" src={cardBack} />
 			{:else}
 				<img alt="Card" src={cardborder} />
-				<div class="p-3 absolute">{card.title}</div>
+				<div class="absolute p-3">{card.title}</div>
 			{/if}
 		</div>
 	{/each}

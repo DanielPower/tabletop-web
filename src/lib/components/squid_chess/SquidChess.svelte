@@ -10,7 +10,7 @@
 </script>
 
 <div class="flex h-full">
-	<div class="flex flex-grow flex-col justify-center items-center gap-12">
+	<div class="flex flex-grow flex-col items-center justify-center gap-12">
 		<Hand {gameState} player="white" />
 		<Board {gameState} />
 		<Hand {gameState} player="black" />

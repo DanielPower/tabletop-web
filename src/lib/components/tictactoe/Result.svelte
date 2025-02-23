@@ -5,7 +5,7 @@
 </script>
 
 {#if $gameState.gameover}
-	<div class="bg-white p-4 rounded-lg shadow-lg">
+	<div class="rounded-lg bg-white p-4 shadow-lg">
 		{#if $gameState.winner === $gameState.userId}
 			🎉 You won!
 		{:else if $gameState.winner}
