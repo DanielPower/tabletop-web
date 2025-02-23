@@ -5,6 +5,7 @@
 	import { subscribe } from '$lib/util/eventStream';
 	import TicTacToe from '$lib/components/tictactoe/TicTacToe.svelte';
 	import SquidChess from '$lib/components/squid_chess/SquidChess.svelte';
+	import GoFish from '$lib/components/go_fish/GoFish.svelte';
 
 	export let data: PageData;
 	const gameState = writable(data.initialPlayerView) as any;
@@ -21,6 +22,8 @@
 	<TicTacToe {gameState} />
 {:else if gameMode === 'squidChess'}
 	<SquidChess {gameState} />
+{:else if gameMode === 'goFish'}
+	<GoFish {gameState} />
 {:else}
 	<p>Unknown game mode: {gameMode}</p>
 {/if}

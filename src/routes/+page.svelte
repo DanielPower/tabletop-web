@@ -11,7 +11,7 @@
 				name="gameMode"
 				class="rounded border border-gray-400 bg-white px-4 py-2 text-xl leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none"
 			>
-				<option value="fish">Go Fish</option>
+				<option value="goFish">Go Fish</option>
 				<option value="squidChess">Squid</option>
 				<option value="tictactoe">TicTacToe</option>
 			</select>
