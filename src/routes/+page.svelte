@@ -5,7 +5,7 @@
 <div class="flex min-h-svh items-center justify-center p-8">
 	<div class="flex flex-col items-center gap-5">
 		<img src={squid} alt="Logo" class="max-h-40" />
-		<h1 class="text-5xl text-gray-800">Fish Jam</h1>
+		<h1 class="text-5xl">Fish Jam</h1>
 		<form method="POST" action="/lobbies/?/new">
 			<select
 				name="gameMode"

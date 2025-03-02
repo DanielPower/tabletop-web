@@ -14,7 +14,7 @@
 	$: reversedMessages = $gameState.messages.toReversed();
 </script>
 
-<div class="flex max-h-lvh max-w-96 flex-col justify-end bg-sky-100 p-2">
+<div class="flex max-h-lvh max-w-96 flex-col justify-end rounded-md bg-slate-700 p-2">
 	<div class="flex flex-grow flex-col-reverse overflow-y-auto">
 		{#each reversedMessages as { userId, message }}
 			<p>{userId}: {message}</p>

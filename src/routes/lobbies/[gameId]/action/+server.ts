@@ -16,8 +16,15 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 	if (!(action in actions)) {
 		return json('Action not available', { status: 400 });
 	}
-	const updater = actions[action]!(args);
-	lobby.game.updateState(updater);
-	console.log(`ACTION[${action}] user[${userId}] args:${JSON.stringify(args)}`);
-	return json('Success');
+	const updater = actions[action](args);
+	try {
+		lobby.game.updateState(updater);
+		console.log(`ACTION[${action}] user[${userId}] args:${JSON.stringify(args)}`);
+		return json('Success');
+	} catch (e) {
+		if (e instanceof Error) {
+			return json(e.message, { status: 400 });
+		}
+		throw e;
+	}
 };
