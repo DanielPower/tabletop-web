@@ -1,9 +1,8 @@
 import { nanoid } from 'nanoid';
 import { tictactoe } from '../games/tictactoe';
-import { squidChess } from '../games/squid_chess';
 import { goFish } from '../games/go_fish';
 
-export const games = { tictactoe, squidChess, goFish };
+export const games = { tictactoe, goFish };
 export const lobbies = new Map<string, { gameMode: string; game: any }>();
 
 export const createLobby = (gameMode: string) => {

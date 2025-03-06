@@ -5,7 +5,7 @@
 	export let cards: Card[];
 </script>
 
-<div class="flex flex-row gap-1">
+<div class="flex flex-shrink flex-row gap-1">
 	{#each cards as card}
 		<div class="min-w-0.5 last:min-w-16">
 			<CardComponent {card} />

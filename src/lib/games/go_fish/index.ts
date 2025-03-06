@@ -22,7 +22,7 @@ const initialState: GoFishState = {
 	playerIds: ['Test1', 'Test2', 'Test3'],
 	vip: null,
 	stage: 'waiting',
-	turnIndex: 0,
+	turnIndex: 3,
 	messages: [{ userId: 'server', message: 'Waiting for players' }],
 };
 
@@ -30,6 +30,7 @@ const getUserView = (userId: string, state: GoFishState) => ({
 	messages: state.messages,
 	isVip: state.vip === userId,
 	stage: state.stage,
+	currentPlayer: state.playerIds[state.turnIndex % state.playerIds.length],
 	players: Object.fromEntries(
 		state.playerIds.map((playerId) => [
 			playerId,

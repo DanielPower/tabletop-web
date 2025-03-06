@@ -2,7 +2,7 @@
 	import type { GoFishActions, GoFishUserView } from '$lib/games/go_fish';
 	import type { Writable } from 'svelte/store';
 	import { action } from '$lib/util/action';
-	import Gameplay from './screens/gameplay.svelte';
+	import Gameplay from './screens/Gameplay.svelte';
 
 	export let gameState: Writable<GoFishUserView>;
 	$: joined = !!$gameState.players[$gameState.userId];
