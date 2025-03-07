@@ -11,12 +11,9 @@
 	const { gameMode } = data.gameData;
 
 	onMount(() => {
-		subscribe(
-			(message) => {
-				gameState.set(message);
-			},
-			{ isAdmin: true },
-		);
+		subscribe((message) => {
+			gameState.set(message);
+		});
 	});
 </script>
 
