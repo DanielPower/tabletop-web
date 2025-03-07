@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { tictactoe } from '../games/tictactoe';
+import { tictactoe } from '../games/tictactoe/tictactoe';
 import { goFish } from '../games/go_fish';
 
 export const games = { tictactoe, goFish };

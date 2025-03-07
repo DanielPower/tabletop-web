@@ -23,6 +23,7 @@ export const POST: RequestHandler = async ({ request, params, locals }) => {
 		return json('Success');
 	} catch (e) {
 		if (e instanceof Error) {
+			console.error(e);
 			return json(e.message, { status: 400 });
 		}
 		throw e;

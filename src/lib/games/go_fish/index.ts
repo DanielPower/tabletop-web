@@ -68,7 +68,7 @@ const getUserActions = (userId: string, _state: GoFishState) => {
 				if (draft.turnIndex !== draft.playerIds.indexOf(userId)) {
 					throw new Error('Not your turn');
 				}
-				if (!draft.playerIds.includes(targetUserId)) {
+				if (!draft.playerIds.includes(targetUserId) || targetUserId === userId) {
 					throw new Error('Invalid target');
 				}
 				if (!draft.players[targetUserId].hand.some((card) => card.rank === rank)) {

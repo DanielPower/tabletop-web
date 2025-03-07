@@ -12,11 +12,15 @@ export const createGame = <
 ) => {
 	let state = initialState;
 	const listeners = new Set<readonly [string, (view: PlayerView) => void]>();
+	const adminListeners = new Set<(state: State) => void>();
 	const getState = () => state;
 	const updateState = (updater: (draft: Draft<State>) => void) => {
 		state = create(state, updater, { strict: true });
 		for (const [userId, listener] of listeners) {
 			listener(getUserView(userId, state));
+		}
+		for (const listener of adminListeners) {
+			listener(state);
 		}
 	};
 	const subscribe = (userId: string, callback: (state: PlayerView) => void) => {
@@ -26,6 +30,13 @@ export const createGame = <
 			listeners.delete(listener);
 		};
 	};
+	const adminSubscribe = (callback: (state: State) => void) => {
+		const listener = callback as any;
+		adminListeners.add(listener);
+		return () => {
+			adminListeners.delete(listener);
+		};
+	};
 	const addUser = (userId: string) => {
 		updateState(onUserJoin(userId));
 	};
@@ -33,6 +44,7 @@ export const createGame = <
 		getState,
 		updateState,
 		subscribe,
+		adminSubscribe,
 		addUser,
 		getUserActions: (userId: string) => getUserActions(userId, state),
 		getUserView: (userId: string) => getUserView(userId, state),

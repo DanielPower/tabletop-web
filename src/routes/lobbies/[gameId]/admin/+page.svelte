@@ -4,23 +4,26 @@
 	import { onMount } from 'svelte';
 	import { subscribe } from '$lib/util/eventStream';
 	import TicTacToe from '$lib/games/tictactoe/components/TicTacToe.svelte';
-	import GoFish from '$lib/games/go_fish/components/GoFish.svelte';
+	import GoFishAdmin from '$lib/games/go_fish/components/GoFishAdmin.svelte';
 
 	export let data: PageData;
-	const gameState = writable(data.initialPlayerView) as any;
+	const gameState = writable(data.initialState) as any;
 	const { gameMode } = data.gameData;
 
 	onMount(() => {
-		subscribe((message) => {
-			gameState.set(message);
-		});
+		subscribe(
+			(message) => {
+				gameState.set(message);
+			},
+			{ isAdmin: true },
+		);
 	});
 </script>
 
 {#if gameMode === 'tictactoe'}
 	<TicTacToe {gameState} />
 {:else if gameMode === 'goFish'}
-	<GoFish {gameState} />
+	<GoFishAdmin {gameState} />
 {:else}
 	<p>Unknown game mode: {gameMode}</p>
 {/if}
