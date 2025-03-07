@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Card } from '$lib/games/go_fish/types';
 
-	export let card: Card;
+	let { card, selected }: { card: Card; selected: boolean } = $props();
 	let color = card.suit === 'hearts' || card.suit === 'diamonds' ? 'red' : 'black';
 	let icon = {
 		hearts: '♥',
@@ -18,7 +18,10 @@
 	></div>
 {:else}
 	<div
-		class="h-32 w-16 rounded-md bg-slate-200 p-2 shadow-lg inset-ring-2 shadow-slate-950 inset-ring-amber-200 hover:bg-amber-200"
+		class="h-32 w-16 rounded-md p-2 shadow-lg shadow-slate-950"
+		class:bg-slate-200={!selected}
+		class:hover:bg-amber-100={!selected}
+		class:bg-amber-200={selected}
 		style="color: {color}"
 	>
 		<div class="flex w-4 flex-col items-center text-base/[1]">
