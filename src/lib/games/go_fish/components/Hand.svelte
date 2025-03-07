@@ -12,7 +12,7 @@
 <div class="flex flex-shrink flex-row gap-1">
 	{#each cards as card}
 		<div class="min-w-0.5 last:min-w-16" onclick={() => onClickCard(card)}>
-			<CardComponent {card} selected={selectedCard === card} />
+			<CardComponent {card} selected={selectedCard && selectedCard.id === card.id} />
 		</div>
 	{/each}
 </div>

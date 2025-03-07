@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid/non-secure';
 import type { Card, GoFishState } from './types';
 
 const SUITS = ['hearts', 'diamonds', 'clubs', 'spades'] as const;
@@ -7,7 +8,7 @@ export const makeDeck = (): Array<Card> => {
 	const deck: Array<Card> = [];
 	for (const suit of SUITS) {
 		for (const rank of RANKS) {
-			deck.push({ rank, suit });
+			deck.push({ rank, suit, id: nanoid() });
 		}
 	}
 	return deck;

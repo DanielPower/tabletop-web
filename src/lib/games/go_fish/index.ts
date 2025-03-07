@@ -51,6 +51,10 @@ const getUserView = (userId: string, state: GoFishState) => ({
 	userId,
 });
 
+const passTurn = (draft: GoFishState) => {
+	draft.turnIndex = (draft.turnIndex + 1) % draft.playerIds.length;
+};
+
 const getUserActions = (userId: string, _state: GoFishState) => {
 	return {
 		becomePlayer: () => (draft: GoFishState) => becomePlayer(draft, userId),
@@ -72,7 +76,9 @@ const getUserActions = (userId: string, _state: GoFishState) => {
 					throw new Error('Invalid target');
 				}
 				if (!draft.players[targetUserId].hand.some((card) => card.rank === rank)) {
-					throw new Error('Target does not have that card');
+					draft.messages.push({ userId, message: 'Go Fish!' });
+					drawCard(draft, userId);
+					passTurn(draft);
 				}
 				const targetPlayer = draft.players[targetUserId];
 				const player = draft.players[userId];
@@ -80,9 +86,15 @@ const getUserActions = (userId: string, _state: GoFishState) => {
 				targetPlayer.hand = targetPlayer.hand.filter((card) => card.rank !== rank);
 				player.hand.push(...cards);
 				draft.messages.push({ userId, message: `Asked ${targetUserId} for ${rank}` });
-				draft.turnIndex = (draft.turnIndex + 1) % draft.playerIds.length;
+				passTurn(draft);
 			},
 		startGame: () => (draft: GoFishState) => {
+			if (!draft.vip) {
+				throw new Error('Not VIP');
+			}
+			if (draft.stage !== 'waiting') {
+				throw new Error('Game already started');
+			}
 			draft.deck = makeDeck();
 			draft.deck = shuffle(draft.deck);
 			for (let i = 0; i < 10; i++) {

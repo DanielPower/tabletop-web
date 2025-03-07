@@ -9,7 +9,7 @@
 	const becomeMember = () => action<GoFishActions, 'becomePlayer'>('becomePlayer');
 </script>
 
-<div class="p-2">
+<div class="h-svh w-full bg-slate-900 p-2 text-white">
 	{#if $gameState.stage === 'waiting'}
 		{#if !joined}
 			<button on:click={() => becomeMember()}>Join</button>
