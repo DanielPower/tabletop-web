@@ -5,27 +5,11 @@ import type { Card, GoFishState } from './types';
 
 const initialState: GoFishState = {
 	deck: [],
-	players: {
-		Test1: {
-			userId: 'Test1',
-			hand: [],
-			score: 0,
-		},
-		Test2: {
-			userId: 'Test2',
-			hand: [],
-			score: 0,
-		},
-		Test3: {
-			userId: 'Test3',
-			hand: [],
-			score: 0,
-		},
-	},
-	playerIds: ['Test1', 'Test2', 'Test3'],
+	players: {},
+	playerIds: [],
 	vip: null,
 	stage: 'waiting',
-	turnIndex: 3,
+	turnIndex: 0,
 	messages: [{ userId: 'server', message: 'Waiting for players' }],
 };
 
