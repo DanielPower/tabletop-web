@@ -22,7 +22,7 @@
 			class:hover:bg-amber-600={yourTurn() && selectedCard}
 		>
 			<p class="p-0.5 font-bold">
-				{player.userId}'s Hand
+				{player.userId}'s Hand ({player.score})
 			</p>
 			<Hand
 				cards={player.hand}
@@ -32,7 +32,7 @@
 		</div>
 	{/each}
 	<div class="max-w-full" class:bg-amber-800={yourTurn}>
-		<p class="p-0.5 font-bold">Your Hand</p>
+		<p class="p-0.5 font-bold">Your Hand ({$gameState.players[$gameState.userId].score})</p>
 		<Hand
 			cards={$gameState.players[$gameState.userId].hand}
 			{selectedCard}

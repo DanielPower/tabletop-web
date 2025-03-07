@@ -9,14 +9,17 @@ const initialState: GoFishState = {
 		Test1: {
 			userId: 'Test1',
 			hand: [],
+			score: 0,
 		},
 		Test2: {
 			userId: 'Test2',
 			hand: [],
+			score: 0,
 		},
 		Test3: {
 			userId: 'Test3',
 			hand: [],
+			score: 0,
 		},
 	},
 	playerIds: ['Test1', 'Test2', 'Test3'],
@@ -36,11 +39,13 @@ const getUserView = (userId: string, state: GoFishState) => ({
 			playerId,
 			{
 				userId: playerId,
+				score: state.players[playerId].score,
 				hand:
 					userId === playerId
 						? state.players[playerId].hand
 						: state.players[playerId].hand.map(
-								(): Card => ({
+								({ id }): Card => ({
+									id,
 									rank: 'unknown',
 									suit: 'unknown',
 								}),
@@ -53,6 +58,23 @@ const getUserView = (userId: string, state: GoFishState) => ({
 
 const passTurn = (draft: GoFishState) => {
 	draft.turnIndex = (draft.turnIndex + 1) % draft.playerIds.length;
+};
+
+const checkSets = (draft: GoFishState, playerId: string) => {
+	const player = draft.players[playerId];
+	const sets = player.hand.reduce((acc, card) => {
+		const count = acc.get(card.rank) || 0;
+		acc.set(card.rank, count + 1);
+		return acc;
+	}, new Map<string, number>());
+
+	for (const rank of sets.keys()) {
+		if (sets.get(rank) === 4) {
+			draft.messages.push({ userId: player.userId, message: `Found a set of ${rank}s` });
+			player.hand = player.hand.filter((card) => card.rank !== rank);
+			player.score += 1;
+		}
+	}
 };
 
 const getUserActions = (userId: string, _state: GoFishState) => {
@@ -78,6 +100,7 @@ const getUserActions = (userId: string, _state: GoFishState) => {
 				if (!draft.players[targetUserId].hand.some((card) => card.rank === rank)) {
 					draft.messages.push({ userId, message: 'Go Fish!' });
 					drawCard(draft, userId);
+					checkSets(draft, userId);
 					passTurn(draft);
 				}
 				const targetPlayer = draft.players[targetUserId];
@@ -86,7 +109,7 @@ const getUserActions = (userId: string, _state: GoFishState) => {
 				targetPlayer.hand = targetPlayer.hand.filter((card) => card.rank !== rank);
 				player.hand.push(...cards);
 				draft.messages.push({ userId, message: `Asked ${targetUserId} for ${rank}` });
-				passTurn(draft);
+				checkSets(draft, userId);
 			},
 		startGame: () => (draft: GoFishState) => {
 			if (!draft.vip) {

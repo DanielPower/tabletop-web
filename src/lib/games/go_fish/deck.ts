@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid/non-secure';
-import type { Card, GoFishState } from './types';
+import type { Card, GoFishState, Rank } from './types';
 
 const SUITS = ['hearts', 'diamonds', 'clubs', 'spades'] as const;
-const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] as const;
+const RANKS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] as const;
 
 export const makeDeck = (): Array<Card> => {
 	const deck: Array<Card> = [];
@@ -12,6 +12,21 @@ export const makeDeck = (): Array<Card> => {
 		}
 	}
 	return deck;
+};
+
+export const rankString = (rank: Rank): string => {
+	switch (rank) {
+		case 11:
+			return 'J';
+		case 12:
+			return 'Q';
+		case 13:
+			return 'K';
+		case 'unknown':
+			return '?';
+		default:
+			return rank.toString();
+	}
 };
 
 export const shuffle = <T>(array: Array<T>): Array<T> => {

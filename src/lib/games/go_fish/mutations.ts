@@ -8,5 +8,6 @@ export const becomePlayer = (state: GoFishState, userId: string) => {
 	state.players[userId] = {
 		userId,
 		hand: [],
+		score: 0,
 	};
 };

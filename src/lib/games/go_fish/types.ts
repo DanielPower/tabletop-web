@@ -1,6 +1,7 @@
 export type Player = {
 	userId: string;
 	hand: Array<Card>;
+	score: number;
 };
 
 export type GoFishState = {
@@ -16,8 +17,10 @@ export type GoFishState = {
 	}>;
 };
 
+export type Rank = number | 'unknown';
+
 export type Card = {
-	rank: '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K' | 'A' | 'unknown';
+	rank: Rank;
 	suit: 'hearts' | 'diamonds' | 'clubs' | 'spades' | 'unknown';
 	id: string;
 };

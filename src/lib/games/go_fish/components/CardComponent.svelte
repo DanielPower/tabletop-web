@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Card } from '$lib/games/go_fish/types';
+	import { rankString } from '../deck';
 
 	let { card, selected }: { card: Card; selected: boolean } = $props();
 	let color = card.suit === 'hearts' || card.suit === 'diamonds' ? 'red' : 'black';
@@ -26,7 +27,7 @@
 	>
 		<div class="flex w-4 flex-col items-center text-base/[1]">
 			<div>{icon}</div>
-			<div>{card.rank}</div>
+			<div>{rankString(card.rank)}</div>
 		</div>
 	</div>
 {/if}
