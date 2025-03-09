@@ -1,22 +1,16 @@
 <script lang="ts">
-	import type { GoFishActions, GoFishUserView } from '$lib/games/go_fish';
+	import type { GoFishUserView } from '$lib/games/go_fish';
 	import type { Writable } from 'svelte/store';
-	import { action } from '$lib/util/action';
 	import Gameplay from './screens/Gameplay.svelte';
+	import Lobby from './screens/Lobby.svelte';
 
 	export let gameState: Writable<GoFishUserView>;
-	$: joined = !!$gameState.players[$gameState.userId];
-	const becomeMember = () => action<GoFishActions, 'becomePlayer'>('becomePlayer');
+	export let gameId: string;
 </script>
 
 <div class="h-svh w-full bg-slate-900 p-2 text-white">
 	{#if $gameState.stage === 'waiting'}
-		{#if !joined}
-			<button on:click={() => becomeMember()}>Join</button>
-		{/if}
-		{#if $gameState.isVip}
-			<button on:click={() => action<GoFishActions, 'startGame'>('startGame')}>Start Game</button>
-		{/if}
+		<Lobby {gameState} {gameId} />
 	{:else}
 		<Gameplay {gameState} />
 	{/if}

@@ -20,7 +20,7 @@ const initialState: GoFishState = {
 
 const getUserView = (userId: string, state: GoFishState) => ({
 	messages: state.messages,
-	isVip: state.vip === userId,
+	vip: state.vip,
 	stage: state.stage,
 	currentPlayer: state.playerIds[state.turnIndex % state.playerIds.length],
 	players: Object.fromEntries(

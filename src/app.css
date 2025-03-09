@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+
+*:focus {
+	outline: 0px none transparent;
+}
+

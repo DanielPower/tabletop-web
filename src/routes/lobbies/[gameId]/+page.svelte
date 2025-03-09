@@ -8,7 +8,7 @@
 
 	export let data: PageData;
 	const gameState = writable(data.initialPlayerView) as any;
-	const { gameMode } = data.gameData;
+	const { gameMode, gameId } = data.gameData;
 
 	onMount(() => {
 		subscribe((message) => {
@@ -20,7 +20,7 @@
 {#if gameMode === 'tictactoe'}
 	<TicTacToe {gameState} />
 {:else if gameMode === 'goFish'}
-	<GoFish {gameState} />
+	<GoFish {gameState} {gameId} />
 {:else}
 	<p>Unknown game mode: {gameMode}</p>
 {/if}
