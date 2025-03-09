@@ -11,7 +11,9 @@
 <div class="h-svh w-full bg-slate-900 p-2 text-white">
 	{#if $gameState.stage === 'waiting'}
 		<Lobby {gameState} {gameId} />
-	{:else}
+	{:else if $gameState.stage === 'playing'}
 		<Gameplay {gameState} />
+	{:else}
+		<div>Unknown stage: {$gameState.stage}</div>
 	{/if}
 </div>

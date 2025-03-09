@@ -5,16 +5,11 @@ import type { Card, GoFishState, Rank } from './types';
 
 const initialState: GoFishState = {
 	deck: [],
-	players: {
-		a: { userId: 'a', hand: [], score: 0 },
-		b: { userId: 'b', hand: [], score: 0 },
-		c: { userId: 'c', hand: [], score: 0 },
-		d: { userId: 'd', hand: [], score: 0 },
-	},
-	playerIds: ['a', 'b', 'c', 'd'],
+	players: {},
+	playerIds: [],
 	vip: null,
 	stage: 'waiting',
-	turnIndex: 2,
+	turnIndex: 0,
 	messages: [{ userId: 'server', message: 'Waiting for players' }],
 };
 
@@ -47,6 +42,14 @@ const getUserView = (userId: string, state: GoFishState) => ({
 
 const passTurn = (draft: GoFishState) => {
 	draft.turnIndex = (draft.turnIndex + 1) % draft.playerIds.length;
+	const currentPlayer = draft.playerIds[draft.turnIndex];
+	if (draft.players[currentPlayer].hand.length === 0) {
+		if (draft.deck.length === 0) {
+			draft.messages.push({ userId: 'server', message: 'No cards, Skipped turn' });
+			return;
+		}
+		drawCard(draft, currentPlayer);
+	}
 };
 
 const checkSets = (draft: GoFishState, playerId: string) => {
@@ -63,6 +66,16 @@ const checkSets = (draft: GoFishState, playerId: string) => {
 			player.hand = player.hand.filter((card) => card.rank !== rank);
 			player.score += 1;
 		}
+	}
+
+	const totalScore = draft.playerIds.reduce(
+		(acc, playerId) => acc + draft.players[playerId].score,
+		0,
+	);
+
+	if (totalScore === 13) {
+		draft.stage = 'gameover';
+		draft.messages.push({ userId: 'server', message: 'Game Over' });
 	}
 };
 

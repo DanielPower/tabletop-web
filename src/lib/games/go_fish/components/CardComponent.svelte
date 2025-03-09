@@ -15,11 +15,11 @@
 
 {#if card.rank === 'unknown' && card.suit === 'unknown'}
 	<div
-		class="unknown h-32 w-16 rounded-md bg-slate-200 shadow-lg inset-ring-2 shadow-slate-900"
+		class="unknown h-24 w-16 rounded-md bg-slate-200 shadow-lg inset-ring-2 shadow-slate-900"
 	></div>
 {:else}
 	<div
-		class="h-32 w-16 rounded-md p-2 shadow-lg shadow-slate-950"
+		class="h-24 w-16 rounded-md p-2 shadow-lg shadow-slate-950"
 		class:bg-slate-200={!selected}
 		class:hover:bg-amber-100={!selected}
 		class:bg-amber-200={selected}
