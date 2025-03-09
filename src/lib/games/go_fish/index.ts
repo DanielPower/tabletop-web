@@ -1,15 +1,20 @@
 import { createGame } from '$lib/game';
 import { drawCard, makeDeck, shuffle } from './deck';
 import { becomePlayer } from './mutations';
-import type { Card, GoFishState } from './types';
+import type { Card, GoFishState, Rank } from './types';
 
 const initialState: GoFishState = {
 	deck: [],
-	players: {},
-	playerIds: [],
+	players: {
+		a: { userId: 'a', hand: [], score: 0 },
+		b: { userId: 'b', hand: [], score: 0 },
+		c: { userId: 'c', hand: [], score: 0 },
+		d: { userId: 'd', hand: [], score: 0 },
+	},
+	playerIds: ['a', 'b', 'c', 'd'],
 	vip: null,
 	stage: 'waiting',
-	turnIndex: 0,
+	turnIndex: 2,
 	messages: [{ userId: 'server', message: 'Waiting for players' }],
 };
 
@@ -50,7 +55,7 @@ const checkSets = (draft: GoFishState, playerId: string) => {
 		const count = acc.get(card.rank) || 0;
 		acc.set(card.rank, count + 1);
 		return acc;
-	}, new Map<string, number>());
+	}, new Map<Rank, number>());
 
 	for (const rank of sets.keys()) {
 		if (sets.get(rank) === 4) {
@@ -70,7 +75,7 @@ const getUserActions = (userId: string, _state: GoFishState) => {
 				draft.messages.push({ userId, message });
 			},
 		requestCard:
-			({ targetUserId, rank }: { targetUserId: string; rank: string }) =>
+			({ targetUserId, rank }: { targetUserId: string; rank: Rank }) =>
 			(draft: GoFishState) => {
 				if (draft.stage !== 'playing') {
 					throw new Error('Game is not in progress');

@@ -16,29 +16,21 @@
 
 <div class="flex h-full w-full flex-col items-center justify-center gap-2">
 	{#each Object.values( { ...$gameState.players }, ).filter((a) => a.userId !== $gameState.userId) as player (player.userId)}
-		<div
-			class="max-w-full"
-			class:bg-amber-800={player.userId === $gameState.currentPlayer}
-			class:hover:bg-amber-600={yourTurn() && selectedCard}
-		>
-			<p class="p-0.5 font-bold">
-				{player.userId}'s Hand ({player.score})
-			</p>
-			<Hand
-				cards={player.hand}
-				{selectedCard}
-				onClickCard={() => yourTurn() && selectedCard && requestCard(player.userId, selectedCard)}
-			/>
-		</div>
-	{/each}
-	<div class="max-w-full" class:bg-amber-800={yourTurn}>
-		<p class="p-0.5 font-bold">Your Hand ({$gameState.players[$gameState.userId].score})</p>
 		<Hand
-			cards={$gameState.players[$gameState.userId].hand}
+			{player}
+			isActive={$gameState.currentPlayer === player.userId}
+			cards={player.hand}
 			{selectedCard}
-			onClickCard={(card) => (selectedCard = card)}
+			onClickCard={() => yourTurn() && selectedCard && requestCard(player.userId, selectedCard)}
 		/>
-	</div>
+	{/each}
+	<Hand
+		player={$gameState.players[$gameState.userId]}
+		isActive={yourTurn()}
+		cards={$gameState.players[$gameState.userId].hand}
+		{selectedCard}
+		onClickCard={(card) => (selectedCard = card)}
+	/>
 	<div class="max-h-48 w-full grow bg-slate-600 p-1">
 		<Chat {gameState} />
 	</div>

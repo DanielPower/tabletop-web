@@ -19,8 +19,10 @@ export type GoFishState = {
 
 export type Rank = number | 'unknown';
 
+export type Suit = 'hearts' | 'diamonds' | 'clubs' | 'spades' | 'unknown';
+
 export type Card = {
 	rank: Rank;
-	suit: 'hearts' | 'diamonds' | 'clubs' | 'spades' | 'unknown';
+	suit: Suit;
 	id: string;
 };
